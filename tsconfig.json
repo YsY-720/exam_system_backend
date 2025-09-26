@@ -18,17 +18,23 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@app/redis": [
-        "libs/redis/src"
+      "@app/email": [
+        "libs/email/src"
       ],
-      "@app/redis/*": [
-        "libs/redis/src/*"
+      "@app/email/*": [
+        "libs/email/src/*"
       ],
       "@app/prisma": [
         "libs/prisma/src"
       ],
       "@app/prisma/*": [
         "libs/prisma/src/*"
+      ],
+      "@app/redis": [
+        "libs/redis/src"
+      ],
+      "@app/redis/*": [
+        "libs/redis/src/*"
       ]
     }
   }

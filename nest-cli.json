@@ -7,6 +7,9 @@
     "webpack": true,
     "tsConfigPath": "apps/exam-system/tsconfig.app.json"
   },
+  "generateOptions": {
+    "spec": false
+  },
   "monorepo": true,
   "root": "apps/exam-system",
   "projects": {
@@ -26,6 +29,15 @@
       "sourceRoot": "apps/answer/src",
       "compilerOptions": {
         "tsConfigPath": "apps/answer/tsconfig.app.json"
+      }
+    },
+    "email": {
+      "type": "library",
+      "root": "libs/email",
+      "entryFile": "index",
+      "sourceRoot": "libs/email/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/email/tsconfig.lib.json"
       }
     },
     "exam": {
