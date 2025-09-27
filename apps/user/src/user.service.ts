@@ -8,6 +8,8 @@ import {
 import { PrismaService } from '@app/prisma'
 import { RedisService } from '@app/redis'
 import { RegisterUserDto } from './dto/register-user.dto'
+import { LoginUserDto } from './dto/login-user.dto'
+import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
 export class UserService {
@@ -16,6 +18,9 @@ export class UserService {
 
   @Inject(RedisService)
   private redisService: RedisService
+
+  @Inject(JwtService)
+  private jwtService: JwtService
 
   private logger = new Logger()
 
@@ -55,6 +60,34 @@ export class UserService {
     } catch (e) {
       this.logger.error(e, UserService)
       return null
+    }
+  }
+
+  async login(data: LoginUserDto) {
+    const foundUser = await this.prismaService.user.findUnique({
+      where: {
+        username: data.username,
+      },
+    })
+    if (!foundUser) {
+      throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST)
+    }
+    if (foundUser.password !== data.password) {
+      throw new HttpException('密码错误', HttpStatus.BAD_REQUEST)
+    }
+    // @ts-ignore
+    delete foundUser.password
+    return {
+      user: foundUser,
+      token: this.jwtService.sign(
+        {
+          userId: foundUser.id,
+          username: foundUser.username,
+        },
+        {
+          expiresIn: '7d',
+        },
+      ),
     }
   }
 }

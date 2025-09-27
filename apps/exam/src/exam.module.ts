@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { ExamController } from './exam.controller'
 import { ExamService } from './exam.service'
-import { RedisService } from '@app/redis'
+import { RedisModule } from '@app/redis'
 
 @Module({
-  imports: [RedisService],
+  imports: [RedisModule],
   controllers: [ExamController],
   providers: [ExamService],
 })

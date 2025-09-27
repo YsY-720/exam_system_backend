@@ -12,7 +12,7 @@ export class EmailService {
       secure: false,
       auth: {
         user: '2285683024@qq.com',
-        pass: 'btlnvjhuwegxdjei',
+        pass: 'cxvqsciydazxebgg',
       },
     })
   }

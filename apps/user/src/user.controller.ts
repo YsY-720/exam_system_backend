@@ -1,8 +1,17 @@
-import { Body, Controller, Get, Inject, Post, Query } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Post,
+  Query,
+  SetMetadata,
+} from '@nestjs/common'
 import { UserService } from './user.service'
 import { RegisterUserDto } from './dto/register-user.dto'
 import { EmailService } from '@app/email'
 import { RedisService } from '@app/redis'
+import { LoginUserDto } from './dto/login-user.dto'
 
 @Controller('user')
 export class UserController {
@@ -30,5 +39,22 @@ export class UserController {
   @Post('register')
   async register(@Body() registerUser: RegisterUserDto) {
     return await this.userService.register(registerUser)
+  }
+
+  @Post('login')
+  async login(@Body() loginUserDto: LoginUserDto) {
+    return await this.userService.login(loginUserDto)
+  }
+
+  @Get('aaa')
+  @SetMetadata('require-login', true)
+  @SetMetadata('test', 123)
+  aaa() {
+    return 'aaa'
+  }
+
+  @Get('bbb')
+  bbb() {
+    return 'bbb'
   }
 }
